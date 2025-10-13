@@ -1,0 +1,25 @@
+version: "3.9"
+
+services:
+  emotions-api:
+    build: .
+    container_name: emotions-api
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_APPLICATION_NAME: emotions
+      SERVER_PORT: 8080
+      SPRING_DATA_MONGODB_URI: mongodb+srv://victoraugustogfavaro:gnEbWas9B31jIGQk@cluster.mybopzg.mongodb.net/challenge
+      API_KEY: 981518ff-ee69-4444-a8de-9f1fc60bfe39
+      LOGGING_LEVEL_ROOT: INFO
+      LOGGING_LEVEL_ORG_SPRINGFRAMEWORK: INFO
+      LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_SECURITY: DEBUG
+      LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_DATA_MONGODB_CORE: DEBUG
+      LOGGING_LEVEL_ORG_MONGODB_DRIVER: INFO
+      LOGGING_LEVEL_BR_COM_FIAP_EMOTIONS: DEBUG
+    networks:
+      - emotions-net
+
+networks:
+  emotions-net:
+    driver: bridge
