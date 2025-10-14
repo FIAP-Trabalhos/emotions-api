@@ -10,8 +10,10 @@ on:
 
 # Define as variáveis de ambiente necessárias
 env:
-  JAVA_VERSION: '21' # Versão configurada para Java 21.
+  JAVA_VERSION: '21' 
   ARTIFACT_NAME: deployable-app
+  # Nome fixo do JAR gerado após a configuração do <finalName> no pom.xml
+  PACKAGE_NAME: emotions-api.jar 
   # Substitua pelos nomes reais dos seus App Services no Azure
   AZURE_WEBAPP_STAGING_NAME: 'emotions-api-staging-app' 
   AZURE_WEBAPP_PRODUCTION_NAME: 'emotions-api-prod-app' 
@@ -36,15 +38,15 @@ jobs:
           cache: 'maven' 
 
       - name: Executar Build e Testes Automatizados com Maven
-        # Este comando compila, executa os testes existentes e empacota o JAR/WAR.
+        # Este comando compila, executa os testes existentes e empacota o JAR.
         run: mvn clean install -DskipTests=false
 
-      - name: Empacotar e Enviar Artifact (.jar ou .war)
+      - name: Empacotar e Enviar Artifact (${{ env.PACKAGE_NAME }})
         uses: actions/upload-artifact@v4
         with:
           name: ${{ env.ARTIFACT_NAME }}
-          # O artefato final é um arquivo JAR (ou WAR) na pasta target/
-          path: target/*.jar
+          # Agora o pipeline espera o nome fixo que o Maven agora gera: emotions-api.jar
+          path: target/${{ env.PACKAGE_NAME }} 
           retention-days: 1
 
   ########################################
@@ -54,7 +56,7 @@ jobs:
     name: Deploy em Homologação (Staging)
     needs: [ci]
     runs-on: ubuntu-latest
-    # Define o ambiente 'staging' (Crie este Ambiente no GitHub)
+    # Define o ambiente 'staging'
     environment: staging
     
     steps:
@@ -68,9 +70,10 @@ jobs:
         uses: azure/webapps-deploy@v3
         with:
           app-name: ${{ env.AZURE_WEBAPP_STAGING_NAME }} 
-          # Secret de publicação (gerado via Azure Portal ou manualmente)
+          # Secret de publicação
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE_STAGING }} 
-          package: ./.deploy/app/*.jar 
+          # Apontando para o nome fixo: emotions-api.jar
+          package: ./.deploy/app/${{ env.PACKAGE_NAME }}
 
   ########################################
   # JOB 3: DEPLOY EM PRODUÇÃO
@@ -80,7 +83,7 @@ jobs:
     # Depende que o deploy de staging tenha sido um sucesso
     needs: [deploy_staging] 
     runs-on: ubuntu-latest
-    # Define o ambiente 'production' (Configure APROVAÇÃO MANUAL no GitHub para este ambiente)
+    # Define o ambiente 'production' (Requer aprovação manual)
     environment: production 
     
     steps:
@@ -95,4 +98,5 @@ jobs:
         with:
           app-name: ${{ env.AZURE_WEBAPP_PRODUCTION_NAME }}
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE_PRODUCTION }}
-          package: ./.deploy/app/*.jar
+          # Apontando para o nome fixo: emotions-api.jar
+          package: ./.deploy/app/${{ env.PACKAGE_NAME }}
