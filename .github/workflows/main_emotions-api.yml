@@ -1,63 +1,98 @@
-# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
-# More GitHub Actions for Azure: https://github.com/Azure/actions
-
-name: Build and deploy JAR app to Azure Web App - emotions-api
+name: Pipeline CI/CD para Azure App Service (Java/Maven)
 
 on:
+  # O pipeline roda em todo push no branch 'main'
   push:
     branches:
       - main
+  # Permite rodar o pipeline manualmente através da interface do GitHub
   workflow_dispatch:
 
+# Define as variáveis de ambiente necessárias
+env:
+  JAVA_VERSION: '21' # Versão configurada para Java 21.
+  ARTIFACT_NAME: deployable-app
+  # Substitua pelos nomes reais dos seus App Services no Azure
+  AZURE_WEBAPP_STAGING_NAME: 'emotions-api-staging-app' 
+  AZURE_WEBAPP_PRODUCTION_NAME: 'emotions-api-prod-app' 
+
 jobs:
-  build:
+  ########################################
+  # JOB 1: INTEGRAÇÃO CONTÍNUA (Build & Testes em Java/Maven)
+  ########################################
+  ci:
+    name: Build & Testes (Java/Maven)
     runs-on: ubuntu-latest
-    permissions:
-      contents: read #This is required for actions/checkout
-
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout do Código
+        uses: actions/checkout@v4
 
-      - name: Set up Java version
+      - name: Configurar Java e Maven
         uses: actions/setup-java@v4
         with:
-          java-version: '21'
-          distribution: 'microsoft'
+          java-version: ${{ env.JAVA_VERSION }}
+          distribution: 'temurin'
+          # Configura o cache do Maven para acelerar builds futuras
+          cache: 'maven' 
 
-      - name: Build with Maven
-        run: mvn clean install
+      - name: Executar Build e Testes Automatizados com Maven
+        # Este comando compila, executa os testes existentes e empacota o JAR/WAR.
+        run: mvn clean install -DskipTests=false
 
-      - name: Upload artifact for deployment job
+      - name: Empacotar e Enviar Artifact (.jar ou .war)
         uses: actions/upload-artifact@v4
         with:
-          name: java-app
-          path: '${{ github.workspace }}/target/*.jar'
+          name: ${{ env.ARTIFACT_NAME }}
+          # O artefato final é um arquivo JAR (ou WAR) na pasta target/
+          path: target/*.jar
+          retention-days: 1
 
-  deploy:
+  ########################################
+  # JOB 2: DEPLOY EM STAGING (Homologação)
+  ########################################
+  deploy_staging:
+    name: Deploy em Homologação (Staging)
+    needs: [ci]
     runs-on: ubuntu-latest
-    needs: build
-    permissions:
-      id-token: write #This is required for requesting the JWT
-      contents: read #This is required for actions/checkout
-  
+    # Define o ambiente 'staging' (Crie este Ambiente no GitHub)
+    environment: staging
+    
     steps:
-      - name: Download artifact from build job
+      - name: Baixar Artifact Compilado
         uses: actions/download-artifact@v4
         with:
-          name: java-app
-      
-      - name: Login to Azure
-        uses: azure/login@v2
-        with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_896B7EEB721949D3A2FCF7E2E25784C0 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_400D22C5D8B64381AD06CF24D5498548 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_370DED06395245F6B6B1BAC59A5AF8B9 }}
+          name: ${{ env.ARTIFACT_NAME }}
+          path: ./.deploy/app
 
-      - name: Deploy to Azure Web App
-        id: deploy-to-webapp
+      - name: Deploy no Azure App Service (Staging)
         uses: azure/webapps-deploy@v3
         with:
-          app-name: 'emotions-api'
-          slot-name: 'Production'
-          package: '*.jar'
-          
+          app-name: ${{ env.AZURE_WEBAPP_STAGING_NAME }} 
+          # Secret de publicação (gerado via Azure Portal ou manualmente)
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE_STAGING }} 
+          package: ./.deploy/app/*.jar 
+
+  ########################################
+  # JOB 3: DEPLOY EM PRODUÇÃO
+  ########################################
+  deploy_production:
+    name: Deploy em Produção
+    # Depende que o deploy de staging tenha sido um sucesso
+    needs: [deploy_staging] 
+    runs-on: ubuntu-latest
+    # Define o ambiente 'production' (Configure APROVAÇÃO MANUAL no GitHub para este ambiente)
+    environment: production 
+    
+    steps:
+      - name: Baixar Artifact Compilado
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ env.ARTIFACT_NAME }}
+          path: ./.deploy/app
+
+      - name: Deploy no Azure App Service (Produção)
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: ${{ env.AZURE_WEBAPP_PRODUCTION_NAME }}
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE_PRODUCTION }}
+          package: ./.deploy/app/*.jar
