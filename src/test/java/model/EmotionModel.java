@@ -1,6 +1,5 @@
 package model;
 
-import br.com.fiap.emotions.model.EmotionEnum;
 import com.google.gson.annotations.Expose;
 import lombok.Data;
 
@@ -18,5 +17,5 @@ public class EmotionModel {
     private LocalDate date;
 
     @Expose
-    private EmotionEnum emotion;
+    private String emotion;
 }

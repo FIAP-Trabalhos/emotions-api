@@ -5,22 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="21890ebe-e916-4b9e-aa01-9628edacf98c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/project.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/emotions.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/model/EmotionModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/model/ErrorMessageModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/runner/TestRunner.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/services/EmotionService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/steps/EmotionSteps.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/features/GetEmotionsToday.feature" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/features/GetRhScreen.feature" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/features/UpdateEmotion.feature" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/schemas/create-emotion-bem-sucedido.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/br/com/fiap/emotions/EmotionsApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/model/EmotionModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/model/EmotionModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/services/EmotionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/services/EmotionService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,6 +43,7 @@
     "Cucumber Java.Scenario: Atualização de emoção bem-sucedido.executor": "Run",
     "Cucumber Java.Scenario: Cadastro de emoção bem-sucedido.executor": "Run",
     "Cucumber Java.Scenario: Cadastro de emoção sem sucesso.executor": "Run",
+    "JUnit.TestRunner.executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
@@ -84,7 +72,7 @@
       <recent name="br.com.fiap.emotions.dto" />
     </key>
   </component>
-  <component name="RunManager" selected="Cucumber Java.Scenario: Cadastro de emoção bem-sucedido">
+  <component name="RunManager" selected="JUnit.TestRunner">
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
       <module name="emotions-api" />
       <option name="ENV_FILES" value="" />
@@ -176,6 +164,21 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="TestRunner" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="emotions" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="runner.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="runner" />
+      <option name="MAIN_CLASS_NAME" value="runner.TestRunner" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration default="true" type="JetRunConfigurationType">
       <module name="emotions-api" />
       <method v="2">
@@ -189,6 +192,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.TestRunner" />
         <item itemvalue="Cucumber Java.Scenario: Cadastro de emoção bem-sucedido" />
         <item itemvalue="Cucumber Java.Scenario: Atualização de emoção bem-sucedido" />
         <item itemvalue="Cucumber Java.Scenario: Cadastro de emoção sem sucesso" />
@@ -212,16 +216,6 @@
           <properties class="java.lang.AssertionError" package="java.lang" />
           <option name="timeStamp" value="2" />
         </breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/services/EmotionService.java</url>
-          <line>53</line>
-          <option name="timeStamp" value="10" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/services/EmotionService.java</url>
-          <line>62</line>
-          <option name="timeStamp" value="11" />
-        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>

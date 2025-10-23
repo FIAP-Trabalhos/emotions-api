@@ -1,6 +1,5 @@
 package services;
 
-import br.com.fiap.emotions.model.EmotionEnum;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
@@ -43,7 +42,7 @@ public class EmotionService {
             case "id" -> emotionModel.setId(value);
             case "deviceId" -> emotionModel.setDeviceId(value);
             case "date" -> emotionModel.setDate(LocalDate.parse(value));
-            case "emotion" -> emotionModel.setEmotion(EmotionEnum.valueOf(value));
+            case "emotion" -> emotionModel.setEmotion(value);
             default -> throw new IllegalStateException("Unexpected field" + field);
         }
     }

@@ -9,5 +9,5 @@ Funcionalidade: Consulta das emoções de hoje
   Cenário: Atualização de emoção bem-sucedido
     Dado que eu tenha os seguintes dados:
       | deviceId | Teste |
-    Quando eu enviar a requisição para o endpoint "/emotions/Teste/today" com o método GET
+    Quando eu enviar a requisição para o endpoint "/emotions/Teste/today" com o método "GET"
     Entao o status code da resposta deve ser 200

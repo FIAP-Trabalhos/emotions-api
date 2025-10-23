@@ -9,5 +9,5 @@ Funcionalidade: Consulta dos dados por mês e ano pra tela de RH
   Cenário: Consulta dos dados bem-sucedido
     Dado que eu tenha os seguintes dados:
       | yearMonth | 2025-09 |
-    Quando eu enviar a requisição para o endpoint "/emotions/2025-09" com o método GET
+    Quando eu enviar a requisição para o endpoint "/emotions/2025-09" com o método "GET"
     Entao o status code da resposta deve ser 200

@@ -1,0 +1,15 @@
+/home/victor/Documents/GitHub/emotions-api/src/main/java/br/com/fiap/emotions/EmotionsApplication.java
+/home/victor/Documents/GitHub/emotions-api/src/main/java/br/com/fiap/emotions/advice/ApplicationExceptionHandler.java
+/home/victor/Documents/GitHub/emotions-api/src/main/java/br/com/fiap/emotions/config/security/AuthService.java
+/home/victor/Documents/GitHub/emotions-api/src/main/java/br/com/fiap/emotions/config/security/SecurityConfig.java
+/home/victor/Documents/GitHub/emotions-api/src/main/java/br/com/fiap/emotions/controller/EmotionController.java
+/home/victor/Documents/GitHub/emotions-api/src/main/java/br/com/fiap/emotions/dto/EmotionCreateDto.java
+/home/victor/Documents/GitHub/emotions-api/src/main/java/br/com/fiap/emotions/dto/EmotionUpdateDto.java
+/home/victor/Documents/GitHub/emotions-api/src/main/java/br/com/fiap/emotions/dto/EmotionViewDto.java
+/home/victor/Documents/GitHub/emotions-api/src/main/java/br/com/fiap/emotions/dto/EmotionViewRhScreenDto.java
+/home/victor/Documents/GitHub/emotions-api/src/main/java/br/com/fiap/emotions/exception/EmotionNotFoundException.java
+/home/victor/Documents/GitHub/emotions-api/src/main/java/br/com/fiap/emotions/exception/MaxEmotionsPerDayException.java
+/home/victor/Documents/GitHub/emotions-api/src/main/java/br/com/fiap/emotions/model/Emotion.java
+/home/victor/Documents/GitHub/emotions-api/src/main/java/br/com/fiap/emotions/model/EmotionEnum.java
+/home/victor/Documents/GitHub/emotions-api/src/main/java/br/com/fiap/emotions/repository/EmotionRepository.java
+/home/victor/Documents/GitHub/emotions-api/src/main/java/br/com/fiap/emotions/service/EmotionService.java
